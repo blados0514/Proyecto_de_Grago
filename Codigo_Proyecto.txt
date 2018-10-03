@@ -1,0 +1,41 @@
+% BLAIMIR OSPINA CARDONA
+clear all; clc;
+ 
+%Carpeta donde se toman las imagenes
+carpeta_origen = 'Paciente_1/';
+ 
+%Nombre del Archivo
+nombre_archivo = 'Spectre';
+ 
+%Extencion de las imagenes
+extension_imagen = '.PNG';
+ 
+%Numero de bandas de la imagen original
+numero_bandas = 450:10:780;
+I = [];
+ 
+for i = 1:length(numero_bandas)
+    image = imread(strcat(carpeta_origen, nombre_archivo,num2str(numero_bandas(i)),extension_imagen));
+    image = double(image);
+    I(:,:,i)=image;
+end
+ 
+[fil,col,nb] = size(I);
+I = shiftdim(I,2);
+I = I(:,:)';
+ 
+C2 = kmeans(I,2);
+C3 = kmeans(I,3);
+C4 = kmeans(I,4);
+ 
+C2 = reshape(C2,fil,col);
+C3 = reshape(C3,fil,col); 
+C4 = reshape(C4,fil,col);
+ 
+ES = ones(3); %elemento estructural de 3x3 lleno de unos
+Ie = imerode (C2, ES);
+ 
+subplot(2,2,1),imshow(C2,[]);
+subplot(2,2,2),imshow(C3,[]),
+subplot(2,2,3),imshow(C4,[]);
+subplot(2,2,4),imshow(Ie);
