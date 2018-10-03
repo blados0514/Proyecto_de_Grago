@@ -1,0 +1,28 @@
+FILTER 
+
+I = rgb2gray 
+
+I2 = edge (I,'Sobel'); --  par ver los bordes 
+
+I2 = edge (I,'Prewitt'); --  par ver los bordes 
+
+I2 = edge (I,'log'); --  laplacian o gauusianna
+
+--Otros tipos de filtro
+
+I2 = edge (I,'Canny'); --  laplacian o gauusianna 
+
+I2 = edge (I,'Roberts'); --  laplacian o gauusianna
+
+I2 = edge (I,'zerocroos'); --  laplacian o gauusianna
+
+im = imfilter (im,fspecial('gaussina')); -- imagen filtrada
+
+
+im = imfilter (im,fspecial('laplacian')); -- imagen filtrada
+
+im = fspecial('');
+
+Im = medfilt2(I) --para filtrar
+
+imshow ([image1,image2]);
